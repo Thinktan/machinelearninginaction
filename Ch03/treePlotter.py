@@ -9,6 +9,20 @@ decisionNode = dict(boxstyle="sawtooth", fc="0.8")
 leafNode = dict(boxstyle="round4", fc="0.8")
 arrow_args = dict(arrowstyle="<-")
 
+def myPlotNode(nodeTxt, centerPt, parentPt, nodeType):
+    myCreatePlot.ax1.annotate(nodeTxt, xy=parentPt, xycoords='axes fraction',
+                              xytext=centerPt, textcoords='axes fraction',
+                              va='center', ha='center', bbox=nodeType, arrowprops=arrow_args)
+
+def myCreatePlot():
+    fig = plt.figure(1, facecolor='white')
+    fig.clf()
+    myCreatePlot.ax1 = plt.subplot(111, frameon=False)
+    myPlotNode('决策节点', (0.5, 0.1), (0.1, 0.5), decisionNode)
+    myPlotNode('叶节点', (0.8, 0.1), (0.3, 0.8), leafNode)
+    plt.show()
+
+
 def getNumLeafs(myTree):
     numLeafs = 0
     firstStr = myTree.keys()[0]
