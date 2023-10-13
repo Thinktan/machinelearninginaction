@@ -18,14 +18,14 @@ def myCreatePlot():
     fig = plt.figure(1, facecolor='white')
     fig.clf()
     myCreatePlot.ax1 = plt.subplot(111, frameon=False)
-    myPlotNode('决策节点', (0.5, 0.1), (0.1, 0.5), decisionNode)
-    myPlotNode('叶节点', (0.8, 0.1), (0.3, 0.8), leafNode)
+    myPlotNode('decisionNode', (0.5, 0.1), (0.1, 0.5), decisionNode)
+    myPlotNode('leafNode', (0.8, 0.1), (0.3, 0.8), leafNode)
     plt.show()
 
 
 def getNumLeafs(myTree):
     numLeafs = 0
-    firstStr = myTree.keys()[0]
+    firstStr = list(myTree.keys())[0]
     secondDict = myTree[firstStr]
     for key in secondDict.keys():
         if type(secondDict[key]).__name__=='dict':#test to see if the nodes are dictonaires, if not they are leaf nodes
@@ -35,7 +35,7 @@ def getNumLeafs(myTree):
 
 def getTreeDepth(myTree):
     maxDepth = 0
-    firstStr = myTree.keys()[0]
+    firstStr = list(myTree.keys())[0]
     secondDict = myTree[firstStr]
     for key in secondDict.keys():
         if type(secondDict[key]).__name__=='dict':#test to see if the nodes are dictonaires, if not they are leaf nodes
@@ -57,7 +57,7 @@ def plotMidText(cntrPt, parentPt, txtString):
 def plotTree(myTree, parentPt, nodeTxt):#if the first key tells you what feat was split on
     numLeafs = getNumLeafs(myTree)  #this determines the x width of this tree
     depth = getTreeDepth(myTree)
-    firstStr = myTree.keys()[0]     #the text label for this node should be this
+    firstStr = list(myTree.keys())[0]     #the text label for this node should be this
     cntrPt = (plotTree.xOff + (1.0 + float(numLeafs))/2.0/plotTree.totalW, plotTree.yOff)
     plotMidText(cntrPt, parentPt, nodeTxt)
     plotNode(firstStr, cntrPt, parentPt, decisionNode)
