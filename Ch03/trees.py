@@ -82,24 +82,33 @@ def createTree(dataSet,labels):
     return myTree                            
     
 def classify(inputTree,featLabels,testVec):
-    firstStr = inputTree.keys()[0]
+    # inputTree:  {'no surfacing': {0: 'no', 1: {'flippers': {0: 'no', 1: 'yes'}}}}
+    # featLabels ['no surfacing', 'flippers']
+    # testVec [1, 0]
+
+    firstStr = list(inputTree.keys())[0]
     secondDict = inputTree[firstStr]
     featIndex = featLabels.index(firstStr)
     key = testVec[featIndex]
     valueOfFeat = secondDict[key]
-    if isinstance(valueOfFeat, dict): 
+    # firstStr: no surfacing
+    # secondDict: {0: 'no', 1: {'flippers': {0: 'no', 1: 'yes'}}}
+    # featIndex: 0
+    # key: 1
+    # valueOfFeat: valueOfFeat {'flippers': {0: 'no', 1: 'yes'}}
+    if isinstance(valueOfFeat, dict):
         classLabel = classify(valueOfFeat, featLabels, testVec)
     else: classLabel = valueOfFeat
     return classLabel
 
 def storeTree(inputTree,filename):
     import pickle
-    fw = open(filename,'w')
-    pickle.dump(inputTree,fw)
+    fw = open(filename, 'wb')
+    pickle.dump(inputTree, fw)
     fw.close()
     
 def grabTree(filename):
     import pickle
-    fr = open(filename)
+    fr = open(filename, 'rb')
     return pickle.load(fr)
     
