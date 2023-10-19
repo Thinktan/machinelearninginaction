@@ -79,16 +79,14 @@ def testingNB():
     p0V,p1V,pAb = trainNB0(array(trainMat),array(listClasses))
     testEntry = ['love', 'my', 'dalmation']
     thisDoc = array(setOfWords2Vec(myVocabList, testEntry))
-    # print('thisDoc: ', thisDoc)
     print(testEntry,'classified as: ',classifyNB(thisDoc,p0V,p1V,pAb))
     testEntry = ['stupid', 'garbage']
     thisDoc = array(setOfWords2Vec(myVocabList, testEntry))
-    # print('thisDoc: ', thisDoc)
     print(testEntry,'classified as: ',classifyNB(thisDoc,p0V,p1V,pAb))
 
 def textParse(bigString):    #input is big string, #output is word list
     import re
-    listOfTokens = re.split(r'\W*', bigString)
+    listOfTokens = re.split(r'\W', bigString)
     return [tok.lower() for tok in listOfTokens if len(tok) > 2] 
     
 def spamTest():
