@@ -80,6 +80,7 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
     for j in range(numIter):
         dataIndex = list(range(m))
         for i in range(m):
+            # 改进1：动态降低步长，缓解高频波动
             alpha = 4/(1.0+j+i)+0.0001    #apha decreases with iteration, does not
             # randIndexOfDataIndex = int(random.uniform(0,len(dataIndex)))
             # randIndex = dataIndex[randIndexOfDataIndex]#go to 0 because of the constant
@@ -89,6 +90,7 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
             # # print(randIndex)
             # del(dataIndex[randIndexOfDataIndex])
 
+            # 改进2：随机挑选样本，减少周期性波动
             randIndex = int(random.uniform(0, len(dataIndex)))  # go to 0 because of the constant
             h = sigmoid(sum(dataMatrix[randIndex] * weights))
             error = classLabels[randIndex] - h
