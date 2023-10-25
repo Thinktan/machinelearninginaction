@@ -6,8 +6,9 @@ dataMat, labelMat = loadDataSet()
 
 
 print(len(dataMat))
-weights = stocGradAscent0(array(dataMat), labelMat)
+# weights = stocGradAscent0(array(dataMat), labelMat)
+weights = stocGradAscent1(array(dataMat), labelMat, 500)
 print(weights)
-# plotBestFit(weights)
+plotBestFit(weights)
 
 
