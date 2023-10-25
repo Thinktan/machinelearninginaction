@@ -7,7 +7,7 @@ from numpy import *
 
 def loadDataSet():
     dataMat = []; labelMat = []
-    fr = open('testSet.txt')
+    fr = open('./testSet.txt')
     for line in fr.readlines():
         lineArr = line.strip().split()
         dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
@@ -24,9 +24,18 @@ def gradAscent(dataMatIn, classLabels):
     alpha = 0.001
     maxCycles = 500
     weights = ones((n,1))
+    # debug
+    # print('labelMat: ', labelMat)
+    # print('labelMat.shape: ', labelMat.shape) #(100, 1)
+    # print('classLabels.type: ', type(classLabels))
+    # print("m: %u, n: %u" % (m, n))
     for k in range(maxCycles):              #heavy on matrix operations
         h = sigmoid(dataMatrix*weights)     #matrix mult
         error = (labelMat - h)              #vector subtraction
+
+        # print(dataMatrix.transpose().shape) # 3,100
+        # print(error.shape) # 100,1
+        # dataMatrix.transpose()* error # 3,1
         weights = weights + alpha * dataMatrix.transpose()* error #matrix mult
     return weights
 
@@ -56,9 +65,12 @@ def stocGradAscent0(dataMatrix, classLabels):
     m,n = shape(dataMatrix)
     alpha = 0.01
     weights = ones(n)   #initialize to all ones
+    print('weight.shape: ', weights.shape) # (3,)
     for i in range(m):
-        h = sigmoid(sum(dataMatrix[i]*weights))
-        error = classLabels[i] - h
+        #print('dataMatrix[i].shape: ', dataMatrix[i].shape) # (3,)
+        h = sigmoid(sum(dataMatrix[i]*weights)) # int
+        error = classLabels[i] - h # int
+        # error(int) * dataMatrix[i](3,)
         weights = weights + alpha * error * dataMatrix[i]
     return weights
 
