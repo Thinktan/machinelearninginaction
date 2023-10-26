@@ -1,0 +1,3 @@
+from logRegres import *
+
+multiTest()
